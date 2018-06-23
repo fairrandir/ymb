@@ -1,0 +1,9 @@
+name = Yandex Money Blocks
+description = Module allow create blocks with Yandex Money donate form
+core = 7.x
+php = 5.4
+dependencies[] = block
+configure = admin/structure/ymb
+
+version = 7.x-1.0-beta2
+
