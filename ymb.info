@@ -5,5 +5,5 @@ php = 5.4
 dependencies[] = block
 configure = admin/structure/ymb
 
-version = 7.x-1.0-beta2
+version = 7.x-1.x-dev
 
