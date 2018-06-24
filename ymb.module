@@ -174,12 +174,21 @@ function ymb_add_form_submit($form, &$form_state) {
 
   $block_body = _ymb_generate_template($receiver, $target, $sum, $url);
 
+  // Create block and get bid
   $bid = db_insert('block_custom')
   ->fields([
     'body' => $block_body,
-    'info' => 'Yandex Money Block ' . REQUEST_TIME,
+    'info' => 'YMB: ' . $target . REQUEST_TIME,
     'format' => 'full_html',
   ])
+  ->execute();
+  // Set bid in 'info' field
+  $title_with_bid = 'YMB: ' . $target . ' (' . $bid . ')';
+  db_update('block_custom')
+  ->fields([
+    'info' => $title_with_bid,
+  ])
+  ->condition('bid', $bid)
   ->execute();
 
   db_insert('yamoney_donate_blocks')
@@ -189,6 +198,23 @@ function ymb_add_form_submit($form, &$form_state) {
     'target' => $target,
     'sum' => $sum,
     'url' => $url,
+  ])
+  ->execute();
+
+  // Set Block Title for current theme
+  db_insert('block')
+  ->fields([
+    'module' => 'block',
+    'delta' => $bid,
+    'theme' => variable_get('theme_default', NULL),
+    'status' => 0,
+    'weight' => 0,
+    'region' => -1,
+    'custom' => 0,
+    'visibility' => 0,
+    'pages' => '',
+    'title' => $title_with_bid,
+    'cache' => '-1',
   ])
   ->execute();
 
