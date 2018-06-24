@@ -189,7 +189,7 @@ function ymb_add_form_submit($form, &$form_state) {
   ->condition('bid', $bid)
   ->execute();
 
-  db_insert('yamoney_donate_blocks')
+  db_insert('ymb')
   ->fields([
     'bid' => $bid,
     'receiver' => $receiver,
@@ -249,7 +249,7 @@ function ymb_block_delete_submit($form, &$form_state) {
  * Form constructor for the custom block edit form.
  */
 function ymb_block_edit($form, &$form_state, $delta) {
-  $block = db_select('yamoney_donate_blocks', 'n')
+  $block = db_select('ymb', 'n')
     ->fields('n')
     ->condition('n.bid', $delta)
     ->execute()
@@ -317,7 +317,7 @@ function ymb_block_edit_submit($form, &$form_state) {
   ->condition('bid', $bid)
   ->execute();
 
-  db_update('yamoney_donate_blocks')
+  db_update('ymb')
   ->fields([
     'receiver' => $receiver,
     'target' => $target,

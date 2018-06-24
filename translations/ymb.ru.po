@@ -114,8 +114,7 @@ msgstr ""
 #: ymb.module:18;26 ymb.info:0
 msgid "Module allow create blocks with Yandex Money donate form"
 msgstr ""
-"Модуль позволяет создавать блоки с "
-"формой пожертвования Яндекс.Деньги"
+"Модуль позволяет создавать блоки с формой сбора средств через Яндекс.Деньги"
 
 #: ymb.module:25
 msgid "Add new Yandex Money Block"

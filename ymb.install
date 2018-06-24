@@ -14,7 +14,7 @@ require_once __DIR__ . '/ymb.helpers.inc';
  * Implements hook_schema().
  */
 function ymb_schema() {
-  $schema['yamoney_donate_blocks'] = [
+  $schema['ymb'] = [
     'description' => 'Stores contents of custom-made blocks.',
     'fields' => [
       'bid' => [

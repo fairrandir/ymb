@@ -8,7 +8,7 @@
  * Get all Yandex Money blocks as objects.
  */
 function _ymb_get_all_blocks() {
-  return db_select('yamoney_donate_blocks', 'n')
+  return db_select('ymb', 'n')
     ->fields('n')
     ->execute();
 }
@@ -28,7 +28,7 @@ function _ymb_get_block_title($fieldname, $data) {
  * Remove block data from all relative tables.
  */
 function _ymb_remove_block_by_bid($bid) {
-  db_delete('yamoney_donate_blocks')
+  db_delete('ymb')
     ->condition('bid', $bid)
     ->execute();
   db_delete('block_custom')
