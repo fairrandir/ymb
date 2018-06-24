@@ -48,14 +48,5 @@ function _ymb_remove_block_by_bid($bid) {
  * Generate template Yandex Money Form with data
  */
 function _ymb_generate_template($receiver, $target, $sum, $url) {
-  return '<form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
-    <div class="ydb_targets"><label><input type="hidden" name="targets" value="' . $target . '">' . $target . '</label></div>
-    <input class="ydb_sum" name="sum" value="' . $sum . '" data-type="number">
-    <div class="ydb_pay_type1"><label><input type="radio" name="paymentType" value="PC">Яндекс.Деньгами</label></div>
-    <div class="ydb_pay_type2"><label><input type="radio" name="paymentType" value="AC">Банковской картой</label></div>
-    <input class="ydb_submit" type="submit" value="Перевести">
-    <input class="ydb_hidden" type="hidden" name="receiver" value="' . $receiver . '">
-    <input class="ydb_hidden" type="hidden" name="quickpay-form" value="donate">
-    <input class="ydb_hidden" type="hidden" name="successURL" value="' . $url . '">
-    </form>';
+  return "<div class='ymb--form'><form method='POST' action='https://money.yandex.ru/quickpay/confirm.xml'><div class='form-item form-type-textfield form-item-name'><input id='edit-ymb-sum' name='sum' value='{$sum}' data-type='number' class='form-text required'></div><div class='form-item form-type-radios form-item-payment-type'><div id='edit-payment-type' class='form-radios'><div class='form-item form-type-radio form-item-payment-type'><input id='edit-payment-type-pc' type='radio' name='paymentType' value='PC' class='form-radio'><label class='option' for='edit-payment-type-pc'>Яндекс.Деньгами</label></div><div class='form-item form-type-radio form-item-payment-type'><input id='edit-payment-type-ac' type='radio' name='paymentType' value='AC' class='form-radio'><label class='option' for='edit-payment-type-ac'>Банковской картой</label></div></div></div><div class='form-actions form-wrapper' id='edit-ymb-actions'><input id='edit-ymb-submit' type='submit' value='Перевести' class='form-submit'></div><input type='hidden' name='receiver' value='{$receiver}'><input type='hidden' name='targets' value='{$target}'><input type='hidden' name='quickpay-form' value='donate'><input type='hidden' name='successURL' value='{$url}'></form></div>";
 }
