@@ -83,13 +83,19 @@ function ymb_list_form() {
     // Get custom block title
     $rows[$bid]['title'] = _ymb_get_block_title('bid', $bid);
 
+    // Get Receiver
+    $rows[$bid]['receiver'] = $block->receiver;
+
+    // Get Target
+    $rows[$bid]['target'] = $block->target;
+
     // Get operations
     $rows[$bid]['op'] = "<a href={$base_url}/admin/structure/ymb/{$bid}/edit>" . t('edit') . "</a> <a href={$base_url}/admin/structure/ymb/{$bid}/delete>" . t('delete') . "</a>";
   }
 
   $form['ydblist'] = [
     '#theme' => 'table',
-    '#header' => [t('Block ID'), t('Block Title'), t('Operations')],
+    '#header' => [t('Block ID'), t('Block Title'), t('Receiver'), t('Target'), t('Actions')],
     '#rows' => $rows,
   ];
 
