@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-06-24 11:06+0500\n"
-"PO-Revision-Date: 2018-06-24 11:06+0500\n"
+"POT-Creation-Date: 2018-06-24 12:18+0500\n"
+"PO-Revision-Date: 2018-06-24 12:18+0500\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -51,19 +51,19 @@ msgstr "Действия"
 msgid "Create new block"
 msgstr "Создать новый блок"
 
-#: ymb.module:130;269
+#: ymb.module:130;268
 msgid "Yandex Money receiver"
 msgstr "Кошелек получателя"
 
-#: ymb.module:138;277
+#: ymb.module:138;276
 msgid "Target of money"
 msgstr "Назначение платежа"
 
-#: ymb.module:144;283
+#: ymb.module:144;282
 msgid "Sum of money (rub)"
 msgstr "Сумма платежа по-умолчанию"
 
-#: ymb.module:152;291
+#: ymb.module:152;290
 msgid "Success URL"
 msgstr "URL перенаправления в случае успеха"
 
@@ -71,37 +71,37 @@ msgstr "URL перенаправления в случае успеха"
 msgid "Create block"
 msgstr "Создать блок"
 
-#: ymb.module:221
+#: ymb.module:220
 msgid "New block created!"
 msgstr "Новый блок создан!"
 
-#: ymb.module:233
+#: ymb.module:232
 msgid "Are you sure you want to delete the block %name?"
 msgstr ""
 "Вы действительно хотите удалить блок "
 "%name?"
 
-#: ymb.module:233
+#: ymb.module:232
 msgid "Delete"
 msgstr "Удалить"
 
-#: ymb.module:233
+#: ymb.module:232
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ymb.module:244
+#: ymb.module:243
 msgid "The block %name has been removed."
 msgstr "Блок %name удален."
 
-#: ymb.module:261;40
+#: ymb.module:260;40
 msgid "Edit block"
 msgstr "Редактировать блок"
 
-#: ymb.module:296
+#: ymb.module:295
 msgid "Save block"
 msgstr "Сохранить блок"
 
-#: ymb.module:334
+#: ymb.module:331
 msgid "Block saved!"
 msgstr "Блок сохранен!"
 

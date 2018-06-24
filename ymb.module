@@ -172,12 +172,10 @@ function ymb_add_form_submit($form, &$form_state) {
   $sum = $submitform['sum']['#value'];
   $url = $submitform['url']['#value'];
 
-  $block_body = _ymb_generate_template($receiver, $target, $sum, $url);
-
   // Create block and get bid
   $bid = db_insert('block_custom')
   ->fields([
-    'body' => $block_body,
+    'body' => '',
     'info' => 'YMB: ' . $target . REQUEST_TIME,
     'format' => 'full_html',
   ])
@@ -187,6 +185,7 @@ function ymb_add_form_submit($form, &$form_state) {
   db_update('block_custom')
   ->fields([
     'info' => $title_with_bid,
+    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url),
   ])
   ->condition('bid', $bid)
   ->execute();
@@ -312,11 +311,9 @@ function ymb_block_edit_submit($form, &$form_state) {
   $sum = $submitform['sum']['#value'];
   $url = $submitform['url']['#value'];
 
-  $block_body = _ymb_generate_template($receiver, $target, $sum, $url);
-
   db_update('block_custom')
   ->fields([
-    'body' => $block_body,
+    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url),
   ])
   ->condition('bid', $bid)
   ->execute();
