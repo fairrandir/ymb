@@ -181,10 +181,9 @@ function ymb_add_form_submit($form, &$form_state) {
   ])
   ->execute();
   // Set bid in 'info' field
-  $title_with_bid = 'YMB: ' . $target . ' (' . $bid . ')';
   db_update('block_custom')
   ->fields([
-    'info' => $title_with_bid,
+    'info' => 'YMB: ' . $target . ' (' . $bid . ')',
     'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url),
   ])
   ->condition('bid', $bid)
@@ -212,7 +211,7 @@ function ymb_add_form_submit($form, &$form_state) {
     'custom' => 0,
     'visibility' => 0,
     'pages' => '',
-    'title' => $title_with_bid,
+    'title' => $target,
     'cache' => '-1',
   ])
   ->execute();
