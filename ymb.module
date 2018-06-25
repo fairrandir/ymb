@@ -56,6 +56,51 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
     // Hide body field in block edit
     if ($form_id == 'block_admin_configure' && $bid == $form['delta']['#value']) {
       hide($form['settings']['body_field']);
+      $block = _ymb_get_block_by_bid($bid);
+      $form['settings']['ymb'] = [
+        '#type' => 'fieldset',
+        '#title' => t('Payment settings'),
+      ];
+      $form['settings']['ymb']['receiver'] = [
+        '#type' => 'textfield',
+        '#title' => t('Yandex Money receiver'),
+        '#default_value' => $block->receiver,
+        '#maxlength' => 17,
+        '#required' => TRUE,
+        '#element_validate' => ['element_validate_number'],
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['target'] = [
+        '#type' => 'textfield',
+        '#title' => t('Target of money'),
+        '#default_value' => $block->target,
+        '#required' => TRUE,
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['sum'] = [
+        '#type' => 'textfield',
+        '#title' => t('Sum of money (rub)'),
+        '#default_value' => $block->sum,
+        '#required' => TRUE,
+        '#maxlength' => 4,
+        '#element_validate' => ['element_validate_number'],
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['description'] = [
+        '#type' => 'textarea',
+        '#title' => t('Description'),
+        '#default_value' => $block->description,
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['url'] = [
+        '#type' => 'textfield',
+        '#title' => t('Success URL'),
+        '#default_value' => $block->url,
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['edit'] = [
+        '#markup' => l(t('edit'), "admin/structure/ymb/{$bid}/edit"),
+      ];
     }
     // Replace "Remove" link
     if ($form_id == 'block_admin_display_form') {
@@ -147,6 +192,11 @@ function ymb_add_form() {
     '#maxlength' => 4,
     '#element_validate' => ['element_validate_number'],
   ];
+  $form['ymb']['description'] = [
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#default_value' => '',
+  ];
   $form['ymb']['url'] = [
     '#type' => 'textfield',
     '#title' => t('Success URL'),
@@ -171,6 +221,7 @@ function ymb_add_form_submit($form, &$form_state) {
   $target = $submitform['target']['#value'];
   $sum = $submitform['sum']['#value'];
   $url = $submitform['url']['#value'];
+  $description = $submitform['description']['#value'];
 
   // Create block and get bid
   $bid = db_insert('block_custom')
@@ -184,7 +235,7 @@ function ymb_add_form_submit($form, &$form_state) {
   db_update('block_custom')
   ->fields([
     'info' => 'YMB: ' . $target . ' (' . $bid . ')',
-    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url),
+    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
   ])
   ->condition('bid', $bid)
   ->execute();
@@ -196,6 +247,7 @@ function ymb_add_form_submit($form, &$form_state) {
     'target' => $target,
     'sum' => $sum,
     'url' => $url,
+    'description' => $description,
   ])
   ->execute();
 
@@ -249,11 +301,7 @@ function ymb_block_delete_submit($form, &$form_state) {
  * Form constructor for the custom block edit form.
  */
 function ymb_block_edit($form, &$form_state, $delta) {
-  $block = db_select('ymb', 'n')
-    ->fields('n')
-    ->condition('n.bid', $delta)
-    ->execute()
-    ->fetchObject();
+  $block = _ymb_get_block_by_bid($delta);
   $form['ymb'] = [
     '#type' => 'fieldset',
     '#title' => t('Edit block'),
@@ -289,6 +337,11 @@ function ymb_block_edit($form, &$form_state, $delta) {
     '#title' => t('Success URL'),
     '#default_value' => $block->url,
   ];
+  $form['ymb']['description'] = [
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#default_value' => $block->description,
+  ];
   $form['ymb']['go'] = [
     '#type' => 'submit',
     '#value' => t('Save block'),
@@ -309,10 +362,11 @@ function ymb_block_edit_submit($form, &$form_state) {
   $target = $submitform['target']['#value'];
   $sum = $submitform['sum']['#value'];
   $url = $submitform['url']['#value'];
+  $description = $submitform['description']['#value'];
 
   db_update('block_custom')
   ->fields([
-    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url),
+    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
   ])
   ->condition('bid', $bid)
   ->execute();
@@ -323,6 +377,7 @@ function ymb_block_edit_submit($form, &$form_state) {
     'target' => $target,
     'sum' => $sum,
     'url' => $url,
+    'description' => $description,
   ])
   ->condition('bid', $bid)
   ->execute();

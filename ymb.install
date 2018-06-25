@@ -46,6 +46,12 @@ function ymb_schema() {
         'length' => 255,
         'description' => 'Success URL',
       ],
+      'description' => array(
+        'type' => 'text',
+        'not null' => FALSE,
+        'size' => 'big',
+        'description' => 'Long description',
+      ),
     ],
     'primary key' => ['bid'],
   ];

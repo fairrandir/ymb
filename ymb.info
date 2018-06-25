@@ -6,4 +6,3 @@ dependencies[] = block
 configure = admin/structure/ymb
 
 version = 7.x-1.x-dev
-
