@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2018-06-25 13:50+0500\n"
-"PO-Revision-Date: 2018-06-25 13:50+0500\n"
+"POT-Creation-Date: 2018-06-26 15:16+0500\n"
+"PO-Revision-Date: 2018-06-26 15:16+0500\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Russian <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -23,93 +23,93 @@ msgstr ""
 msgid "Payment settings"
 msgstr "Параметры приёма платежей"
 
-#: ymb.module:66;175;315
-msgid "Yandex Money receiver"
+#: ymb.module:66;167;307
+msgid "Number of Yandex Money Wallet"
 msgstr "Кошелек получателя"
 
-#: ymb.module:75;183;323
-msgid "Target of money"
+#: ymb.module:75;175;315
+msgid "Payment purpose"
 msgstr "Назначение платежа"
 
-#: ymb.module:82;189;329
-msgid "Sum of money (rub)"
+#: ymb.module:82;181;321
+msgid "Amount to be prompted"
 msgstr "Сумма платежа по-умолчанию"
 
-#: ymb.module:91;197;342
-msgid "Description"
-msgstr "Расширенное описание"
-
-#: ymb.module:97;202;337
-msgid "Success URL"
+#: ymb.module:91;189;329
+msgid "Link for redirecting"
 msgstr "URL перенаправления в случае успеха"
 
-#: ymb.module:102;138
+#: ymb.module:97;194;334
+msgid "Description"
+msgstr "Описание"
+
+#: ymb.module:102;130
 msgid "edit"
 msgstr "изменить"
 
-#: ymb.module:138
+#: ymb.module:130
 msgid "delete"
 msgstr "удалить"
 
-#: ymb.module:143
+#: ymb.module:135
 msgid "Block ID"
 msgstr "ID блока"
 
-#: ymb.module:143
+#: ymb.module:135
 msgid "Block Title"
 msgstr "Название блока"
 
-#: ymb.module:143
+#: ymb.module:135
 msgid "Receiver"
 msgstr "Кошелёк"
 
-#: ymb.module:143
+#: ymb.module:135
 msgid "Target"
 msgstr "Назначение платежа"
 
-#: ymb.module:143
+#: ymb.module:135
 msgid "Actions"
 msgstr "Действия"
 
-#: ymb.module:149;171
+#: ymb.module:141;163
 msgid "Create new block"
 msgstr "Создать новый блок"
 
-#: ymb.module:207
+#: ymb.module:199
 msgid "Create block"
 msgstr "Создать блок"
 
-#: ymb.module:271
+#: ymb.module:263
 msgid "New block created!"
 msgstr "Новый блок создан!"
 
-#: ymb.module:283
+#: ymb.module:275
 msgid "Are you sure you want to delete the block %name?"
 msgstr ""
 "Вы действительно хотите удалить блок "
 "%name?"
 
-#: ymb.module:283
+#: ymb.module:275
 msgid "Delete"
 msgstr "Удалить"
 
-#: ymb.module:283
+#: ymb.module:275
 msgid "Cancel"
 msgstr "Отмена"
 
-#: ymb.module:294
+#: ymb.module:286
 msgid "The block %name has been removed."
 msgstr "Блок %name удален."
 
-#: ymb.module:307;40
+#: ymb.module:299;40
 msgid "Edit block"
 msgstr "Редактировать блок"
 
-#: ymb.module:347
+#: ymb.module:339
 msgid "Save block"
 msgstr "Сохранить блок"
 
-#: ymb.module:385
+#: ymb.module:377
 msgid "Block saved!"
 msgstr "Блок сохранен!"
 
@@ -119,8 +119,8 @@ msgstr ""
 "Блоки сбора средств через "
 "Яндекс.Деньги"
 
-#: ymb.module:18;26 ymb.info:0
-msgid "Module allow create blocks with Yandex Money donate form"
+#: ymb.module:18
+msgid "Raise money to your Yandex Money Wallet."
 msgstr ""
 "Модуль позволяет создавать блоки с "
 "формой сбора средств через "
@@ -130,6 +130,18 @@ msgstr ""
 msgid "Add new Yandex Money Block"
 msgstr "Добавить новый блок"
 
+#: ymb.module:26
+msgid "Create block with form to raise money to your Yandex Money Wallet."
+msgstr "Добавить новый блок"
+
 #: ymb.module:33
 msgid "Delete block"
 msgstr "Удалить блок"
+
+#: ymb.info:0
+msgid "Create blocks with form for raising money to your Yandex Money Wallet."
+msgstr ""
+"Модуль позволяет создавать блоки с "
+"формой сбора средств через "
+"Яндекс.Деньги"
+
