@@ -86,16 +86,16 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
         '#element_validate' => ['element_validate_number'],
         '#disabled' => TRUE,
       ];
-      $form['settings']['ymb']['description'] = [
-        '#type' => 'textarea',
-        '#title' => t('Description'),
-        '#default_value' => $block->description,
-        '#disabled' => TRUE,
-      ];
       $form['settings']['ymb']['url'] = [
         '#type' => 'textfield',
         '#title' => t('Success URL'),
         '#default_value' => $block->url,
+        '#disabled' => TRUE,
+      ];
+      $form['settings']['ymb']['description'] = [
+        '#type' => 'textarea',
+        '#title' => t('Description'),
+        '#default_value' => $block->description,
         '#disabled' => TRUE,
       ];
       $form['settings']['ymb']['edit'] = [
@@ -192,14 +192,14 @@ function ymb_add_form() {
     '#maxlength' => 4,
     '#element_validate' => ['element_validate_number'],
   ];
-  $form['ymb']['description'] = [
-    '#type' => 'textarea',
-    '#title' => t('Description'),
-    '#default_value' => '',
-  ];
   $form['ymb']['url'] = [
     '#type' => 'textfield',
     '#title' => t('Success URL'),
+    '#default_value' => '',
+  ];
+  $form['ymb']['description'] = [
+    '#type' => 'textarea',
+    '#title' => t('Description'),
     '#default_value' => '',
   ];
   $form['ymb']['go'] = [
