@@ -15,7 +15,7 @@ require_once __DIR__ . '/ymb.helpers.inc';
 function ymb_menu() {
   $items['admin/structure/ymb'] = [
     'title' => 'Yandex Money Blocks',
-    'description' => 'Module allow create blocks with Yandex Money donate form',
+    'description' => 'Raise money to your Yandex Money Wallet.',
     'page callback' => 'drupal_get_form',
     'page arguments' => ['ymb_list_form'],
     'access arguments' => ['administer blocks'],
@@ -23,7 +23,7 @@ function ymb_menu() {
 
   $items['admin/structure/ymb/add'] = [
     'title' => 'Add new Yandex Money Block',
-    'description' => 'Module allow create blocks with Yandex Money donate form',
+    'description' => 'Create block with form to raise money to your Yandex Money Wallet.',
     'page callback' => 'drupal_get_form',
     'page arguments' => ['ymb_add_form'],
     'access arguments' => ['administer blocks'],
@@ -53,7 +53,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
   $blocks = _ymb_get_all_blocks();
   foreach ($blocks as $block) {
     $bid = $block->bid;
-    // Hide body field in block edit
+    // Hide 'body' field in block edit form as we store raising form in there.
     if ($form_id == 'block_admin_configure' && $bid == $form['delta']['#value']) {
       hide($form['settings']['body_field']);
       $block = _ymb_get_block_by_bid($bid);
@@ -63,7 +63,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['receiver'] = [
         '#type' => 'textfield',
-        '#title' => t('Yandex Money receiver'),
+        '#title' => t('Number of Yandex Money Wallet'),
         '#default_value' => $block->receiver,
         '#maxlength' => 17,
         '#required' => TRUE,
@@ -72,14 +72,14 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['target'] = [
         '#type' => 'textfield',
-        '#title' => t('Target of money'),
+        '#title' => t('Payment purpose'),
         '#default_value' => $block->target,
         '#required' => TRUE,
         '#disabled' => TRUE,
       ];
       $form['settings']['ymb']['sum'] = [
         '#type' => 'textfield',
-        '#title' => t('Sum of money (rub)'),
+        '#title' => t('Amount to be prompted'),
         '#default_value' => $block->sum,
         '#required' => TRUE,
         '#maxlength' => 4,
@@ -88,7 +88,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['url'] = [
         '#type' => 'textfield',
-        '#title' => t('Success URL'),
+        '#title' => t('Link for redirecting'),
         '#default_value' => $block->url,
         '#disabled' => TRUE,
       ];
@@ -102,7 +102,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
         '#markup' => l(t('edit'), "admin/structure/ymb/{$bid}/edit"),
       ];
     }
-    // Replace "Remove" link
+    // Replace 'Remove' link
     if ($form_id == 'block_admin_display_form') {
       $form['blocks']["block_{$bid}"]['delete']['#href'] = "admin/structure/ymb/{$bid}/delete";
     }
@@ -116,25 +116,17 @@ function ymb_list_form() {
   global $base_url;
   $rows = [];
 
-  // Get ya.blocks bids
+  // Get YMB blocks bids
   $blocks = _ymb_get_all_blocks();
 
   // Make rows
   foreach ($blocks as $block) {
-    // Get bid
     $bid = $block->bid;
+
     $rows[$bid]['bid'] = $bid;
-
-    // Get custom block title
     $rows[$bid]['title'] = _ymb_get_block_title('bid', $bid);
-
-    // Get Receiver
     $rows[$bid]['receiver'] = $block->receiver;
-
-    // Get Target
     $rows[$bid]['target'] = $block->target;
-
-    // Get operations
     $rows[$bid]['op'] = "<a href={$base_url}/admin/structure/ymb/{$bid}/edit>" . t('edit') . "</a> <a href={$base_url}/admin/structure/ymb/{$bid}/delete>" . t('delete') . "</a>";
   }
 
@@ -172,7 +164,7 @@ function ymb_add_form() {
   ];
   $form['ymb']['receiver'] = [
     '#type' => 'textfield',
-    '#title' => t('Yandex Money receiver'),
+    '#title' => t('Number of Yandex Money Wallet'),
     '#default_value' => '',
     '#maxlength' => 17,
     '#required' => TRUE,
@@ -180,13 +172,13 @@ function ymb_add_form() {
   ];
   $form['ymb']['target'] = [
     '#type' => 'textfield',
-    '#title' => t('Target of money'),
+    '#title' => t('Payment purpose'),
     '#default_value' => '',
     '#required' => TRUE,
   ];
   $form['ymb']['sum'] = [
     '#type' => 'textfield',
-    '#title' => t('Sum of money (rub)'),
+    '#title' => t('Amount to be prompted'),
     '#default_value' => '',
     '#required' => TRUE,
     '#maxlength' => 4,
@@ -194,7 +186,7 @@ function ymb_add_form() {
   ];
   $form['ymb']['url'] = [
     '#type' => 'textfield',
-    '#title' => t('Success URL'),
+    '#title' => t('Link for redirecting'),
     '#default_value' => '',
   ];
   $form['ymb']['description'] = [
@@ -231,7 +223,7 @@ function ymb_add_form_submit($form, &$form_state) {
     'format' => 'full_html',
   ])
   ->execute();
-  // Set bid in 'info' field
+  // Set bid to block's 'info' field
   db_update('block_custom')
   ->fields([
     'info' => 'YMB: ' . $target . ' (' . $bid . ')',
@@ -251,7 +243,7 @@ function ymb_add_form_submit($form, &$form_state) {
   ])
   ->execute();
 
-  // Set Block Title for current theme
+  // Set block's title for current theme
   db_insert('block')
   ->fields([
     'module' => 'block',
@@ -312,7 +304,7 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['receiver'] = [
     '#type' => 'textfield',
-    '#title' => t('Yandex Money receiver'),
+    '#title' => t('Number of Yandex Money Wallet'),
     '#default_value' => $block->receiver,
     '#maxlength' => 17,
     '#required' => TRUE,
@@ -320,13 +312,13 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['target'] = [
     '#type' => 'textfield',
-    '#title' => t('Target of money'),
+    '#title' => t('Payment purpose'),
     '#default_value' => $block->target,
     '#required' => TRUE,
   ];
   $form['ymb']['sum'] = [
     '#type' => 'textfield',
-    '#title' => t('Sum of money (rub)'),
+    '#title' => t('Amount to be prompted'),
     '#default_value' => $block->sum,
     '#required' => TRUE,
     '#maxlength' => 4,
@@ -334,7 +326,7 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['url'] = [
     '#type' => 'textfield',
-    '#title' => t('Success URL'),
+    '#title' => t('Link for redirecting'),
     '#default_value' => $block->url,
   ];
   $form['ymb']['description'] = [

@@ -1,5 +1,5 @@
 name = Yandex Money Blocks
-description = Module allow create blocks with Yandex Money donate form
+description = Create blocks with form for raising money to your Yandex Money Wallet.
 core = 7.x
 php = 5.4
 dependencies[] = block
