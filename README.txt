@@ -1,10 +1,10 @@
-Yandex Money Blocks
+Yandex Money Blocks (YMB)
 https://www.drupal.org/project/ymb
 ==============================================
 
 DESCRIPTION
 -----------
-Module allow create blocks with Yandex Money donate form
+Module allows creation of blocks with form for raising money to your Yandex Money Wallet.
 
 DEPENDENCIES
 ------------
@@ -12,6 +12,6 @@ block
 
 INSTALLATION AND CONFIGURATION
 ------------------------------
-1) Install the module as usual
-2) Enable the module
-3) Go to admin/structure/ymb and follow instructions
+1) Install module as usual
+2) Enable module
+3) Go to admin/structure/ymb to create and manage YMB-blocks
