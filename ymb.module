@@ -63,7 +63,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['receiver'] = [
         '#type' => 'textfield',
-        '#title' => t('Yandex Money receiver'),
+        '#title' => t('Number of Yandex Money Wallet'),
         '#default_value' => $block->receiver,
         '#maxlength' => 17,
         '#required' => TRUE,
@@ -72,14 +72,14 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['target'] = [
         '#type' => 'textfield',
-        '#title' => t('Target of money'),
+        '#title' => t('Payment purpose'),
         '#default_value' => $block->target,
         '#required' => TRUE,
         '#disabled' => TRUE,
       ];
       $form['settings']['ymb']['sum'] = [
         '#type' => 'textfield',
-        '#title' => t('Sum of money (rub)'),
+        '#title' => t('Amount to be prompted'),
         '#default_value' => $block->sum,
         '#required' => TRUE,
         '#maxlength' => 4,
@@ -88,7 +88,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
       ];
       $form['settings']['ymb']['url'] = [
         '#type' => 'textfield',
-        '#title' => t('Success URL'),
+        '#title' => t('Link for redirecting'),
         '#default_value' => $block->url,
         '#disabled' => TRUE,
       ];
@@ -304,7 +304,7 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['receiver'] = [
     '#type' => 'textfield',
-    '#title' => t('Yandex Money receiver'),
+    '#title' => t('Number of Yandex Money Wallet'),
     '#default_value' => $block->receiver,
     '#maxlength' => 17,
     '#required' => TRUE,
@@ -312,13 +312,13 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['target'] = [
     '#type' => 'textfield',
-    '#title' => t('Target of money'),
+    '#title' => t('Payment purpose'),
     '#default_value' => $block->target,
     '#required' => TRUE,
   ];
   $form['ymb']['sum'] = [
     '#type' => 'textfield',
-    '#title' => t('Sum of money (rub)'),
+    '#title' => t('Amount to be prompted'),
     '#default_value' => $block->sum,
     '#required' => TRUE,
     '#maxlength' => 4,
@@ -326,7 +326,7 @@ function ymb_block_edit($form, &$form_state, $delta) {
   ];
   $form['ymb']['url'] = [
     '#type' => 'textfield',
-    '#title' => t('Success URL'),
+    '#title' => t('Link for redirecting'),
     '#default_value' => $block->url,
   ];
   $form['ymb']['description'] = [
