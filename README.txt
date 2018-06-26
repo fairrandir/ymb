@@ -4,7 +4,8 @@ https://www.drupal.org/project/ymb
 
 DESCRIPTION
 -----------
-Module allows creation of blocks with form for raising money to your Yandex Money Wallet.
+Module allows creation of blocks with form for raising money to your Yandex
+Money Wallet.
 
 DEPENDENCIES
 ------------

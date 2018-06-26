@@ -2,6 +2,7 @@
 
 /**
  * @file
+ * Main module file.
  */
 
 /**
@@ -102,7 +103,7 @@ function ymb_form_alter(&$form, &$form_state, $form_id) {
         '#markup' => l(t('edit'), "admin/structure/ymb/{$bid}/edit"),
       ];
     }
-    // Replace 'Remove' link
+    // Replace 'Remove' link.
     if ($form_id == 'block_admin_display_form') {
       $form['blocks']["block_{$bid}"]['delete']['#href'] = "admin/structure/ymb/{$bid}/delete";
     }
@@ -116,10 +117,10 @@ function ymb_list_form() {
   global $base_url;
   $rows = [];
 
-  // Get YMB blocks bids
+  // Get YMB blocks bids.
   $blocks = _ymb_get_all_blocks();
 
-  // Make rows
+  // Make rows.
   foreach ($blocks as $block) {
     $bid = $block->bid;
 
@@ -132,7 +133,13 @@ function ymb_list_form() {
 
   $form['list'] = [
     '#theme' => 'table',
-    '#header' => [t('Block ID'), t('Block Title'), t('Receiver'), t('Target'), t('Actions')],
+    '#header' => [
+      t('Block ID'),
+      t('Block Title'),
+      t('Receiver'),
+      t('Target'),
+      t('Actions'),
+    ],
     '#rows' => $rows,
   ];
 
@@ -215,50 +222,50 @@ function ymb_add_form_submit($form, &$form_state) {
   $url = $submitform['url']['#value'];
   $description = $submitform['description']['#value'];
 
-  // Create block and get bid
+  // Create block and get bid.
   $bid = db_insert('block_custom')
-  ->fields([
-    'body' => '',
-    'info' => 'YMB: ' . $target . REQUEST_TIME,
-    'format' => 'full_html',
-  ])
-  ->execute();
-  // Set bid to block's 'info' field
+    ->fields([
+      'body' => '',
+      'info' => 'YMB: ' . $target . REQUEST_TIME,
+      'format' => 'full_html',
+    ])
+    ->execute();
+  // Set bid to block's 'info' field.
   db_update('block_custom')
-  ->fields([
-    'info' => 'YMB: ' . $target . ' (' . $bid . ')',
-    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
-  ])
-  ->condition('bid', $bid)
-  ->execute();
+    ->fields([
+      'info' => 'YMB: ' . $target . ' (' . $bid . ')',
+      'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
+    ])
+    ->condition('bid', $bid)
+    ->execute();
 
   db_insert('ymb')
-  ->fields([
-    'bid' => $bid,
-    'receiver' => $receiver,
-    'target' => $target,
-    'sum' => $sum,
-    'url' => $url,
-    'description' => $description,
-  ])
-  ->execute();
+    ->fields([
+      'bid' => $bid,
+      'receiver' => $receiver,
+      'target' => $target,
+      'sum' => $sum,
+      'url' => $url,
+      'description' => $description,
+    ])
+    ->execute();
 
-  // Set block's title for current theme
+  // Set block's title for current theme.
   db_insert('block')
-  ->fields([
-    'module' => 'block',
-    'delta' => $bid,
-    'theme' => variable_get('theme_default', NULL),
-    'status' => 0,
-    'weight' => 0,
-    'region' => -1,
-    'custom' => 0,
-    'visibility' => 0,
-    'pages' => '',
-    'title' => $target,
-    'cache' => '-1',
-  ])
-  ->execute();
+    ->fields([
+      'module' => 'block',
+      'delta' => $bid,
+      'theme' => variable_get('theme_default', NULL),
+      'status' => 0,
+      'weight' => 0,
+      'region' => -1,
+      'custom' => 0,
+      'visibility' => 0,
+      'pages' => '',
+      'title' => $target,
+      'cache' => '-1',
+    ])
+    ->execute();
 
   drupal_set_message(t('New block created!'));
   drupal_goto('admin/structure/ymb');
@@ -286,7 +293,6 @@ function ymb_block_delete_submit($form, &$form_state) {
   drupal_set_message(t('The block %name has been removed.', ['%name' => $form_state['values']['info']]));
   cache_clear_all();
   $form_state['redirect'] = 'admin/structure/ymb';
-  return;
 }
 
 /**
@@ -357,22 +363,22 @@ function ymb_block_edit_submit($form, &$form_state) {
   $description = $submitform['description']['#value'];
 
   db_update('block_custom')
-  ->fields([
-    'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
-  ])
-  ->condition('bid', $bid)
-  ->execute();
+    ->fields([
+      'body' => _ymb_generate_template($bid, $receiver, $target, $sum, $url, $description),
+    ])
+    ->condition('bid', $bid)
+    ->execute();
 
   db_update('ymb')
-  ->fields([
-    'receiver' => $receiver,
-    'target' => $target,
-    'sum' => $sum,
-    'url' => $url,
-    'description' => $description,
-  ])
-  ->condition('bid', $bid)
-  ->execute();
+    ->fields([
+      'receiver' => $receiver,
+      'target' => $target,
+      'sum' => $sum,
+      'url' => $url,
+      'description' => $description,
+    ])
+    ->condition('bid', $bid)
+    ->execute();
 
   drupal_set_message(t('Block saved!'));
   drupal_goto('admin/structure/ymb');
