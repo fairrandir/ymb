@@ -384,7 +384,6 @@ function ymb_block_edit_submit($form, &$form_state) {
   drupal_goto('admin/structure/ymb');
 }
 
-
 /**
  * Implements hook_preprocess_block().
  */
