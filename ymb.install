@@ -6,11 +6,6 @@
  */
 
 /**
- * Attach helpers.
- */
-require_once __DIR__ . '/ymb.helpers.inc';
-
-/**
  * Implements hook_schema().
  */
 function ymb_schema() {
@@ -57,14 +52,4 @@ function ymb_schema() {
   ];
 
   return $schema;
-}
-
-/**
- * Implements hook_uninstall().
- */
-function ymb_uninstall() {
-  $bids = _ymb_get_all_blocks();
-  foreach ($bids as $bid) {
-    _ymb_remove_block_by_bid($bid->bid);
-  }
 }
